@@ -1,0 +1,18 @@
+{% extends "pretixcontrol/event/settings_base.html" %}
+{% load i18n %}
+{% load bootstrap3 %}
+
+{% block title %}{% trans "Roll Number Settings" %}{% endblock %}
+
+{% block inside %}
+    <h1>{% trans "Roll Number Settings" %}</h1>
+    <form action="" method="post" class="form-horizontal">
+        {% csrf_token %}
+        {% bootstrap_form form layout="horizontal" %}
+        <div class="form-group submit-group">
+            <button type="submit" class="btn btn-primary btn-save">
+                {% trans "Save" %}
+            </button>
+        </div>
+    </form>
+{% endblock %} 

@@ -1,0 +1,52 @@
+{% extends "pretixcontrol/event/settings_base.html" %}
+{% load i18n %}
+{% load bootstrap3 %}
+
+{% block title %}{% trans "Import Students" %}{% endblock %}
+
+{% block inside %}
+    <h1>{% trans "Import Students" %}</h1>
+    
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">{% trans "CSV Format Instructions" %}</h3>
+        </div>
+        <div class="panel-body">
+            <p>{% trans "Please prepare your CSV file with the following columns:" %}</p>
+            <ul>
+                <li><strong>roll_number</strong> - {% trans "Required. Student roll number (e.g., CSE001)" %}</li>
+                <li><strong>name</strong> - {% trans "Required. Full name of the student" %}</li>
+                <li><strong>department</strong> - {% trans "Required. Department or branch" %}</li>
+                <li><strong>email</strong> - {% trans "Optional. Student email address" %}</li>
+                <li><strong>batch</strong> - {% trans "Optional. Student batch/year" %}</li>
+                <li><strong>is_active</strong> - {% trans "Optional. Set to 'false' to disable (default: true)" %}</li>
+            </ul>
+            
+            <p>{% trans "Example:" %}</p>
+            <pre>roll_number,name,department,email,batch,is_active
+CSE001,John Doe,Computer Science,john@example.com,2024,true
+ECE001,Jane Smith,Electronics,jane@example.com,2024,true</pre>
+        </div>
+    </div>
+
+    <form action="" method="post" class="form-horizontal" enctype="multipart/form-data">
+        {% csrf_token %}
+        {% bootstrap_form form layout="horizontal" %}
+        
+        <div class="form-group submit-group">
+            <button type="submit" class="btn btn-primary btn-lg">
+                {% trans "Import Students" %}
+            </button>
+        </div>
+    </form>
+
+    <div class="alert alert-info">
+        <p>{% trans "Notes:" %}</p>
+        <ul>
+            <li>{% trans "The CSV file must be UTF-8 encoded" %}</li>
+            <li>{% trans "Roll numbers will be automatically converted to uppercase" %}</li>
+            <li>{% trans "Leading and trailing spaces will be removed from all fields" %}</li>
+            <li>{% trans "If 'Update Existing' is checked, existing students will be updated with new data" %}</li>
+        </ul>
+    </div>
+{% endblock %} 
